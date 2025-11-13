@@ -1,0 +1,33 @@
+# --------------------
+# Ambientes e Cache
+# --------------------
+venv/
+env/
+__pycache__/
+*.pyc
+
+# --------------------
+# Django
+# --------------------
+# Base de Dados local (sqlite3)
+db.sqlite3
+# Logs e media uploads
+*.log
+media/
+
+# --------------------
+# Machine Learning (Modelos, Dados)
+# --------------------
+# Modelos binários
+*.pkl
+*.joblib
+*.h5
+
+# Dados Brutos ou Sensíveis
+data/
+*.csv
+
+# --------------------
+# Configurações de Sistema
+# --------------------
+.DS_Store
