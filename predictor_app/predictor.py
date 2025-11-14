@@ -12,8 +12,18 @@ except FileNotFoundError:
     raise(f'The as not found in this {MODEL_PATH}')
 
 def predictor(input1,input2):
-    features = np.np.array([[input1,input2]])
-    MODEL.predict(features)[0]
+    features = np.array([[input1,input2]])
+    predicted_value = MODEL.predict(features)[0]
+    grades = {4 : "A", 3 : "B", 2 : "C", 1 : "D", 0 : "F"}
+    rounded_grade = round(predicted_value)
+    predicted_grade = grades.get(rounded_grade, 'Error')
+    return predicted_grade
+    
+
+
+
+
+
     
 
 
