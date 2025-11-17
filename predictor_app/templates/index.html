@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Grade Predictor - ML Project</title>
+    
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #0056b3;
+            text-align: center;
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 10px;
+        }
+        .result-box {
+            background-color: #e6f7ff;
+            border: 1px solid #007bff;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .result-box h2 {
+            margin-top: 0;
+            color: #007bff;
+        }
+        .grade-output {
+            font-size: 32px;
+            font-weight: bold;
+            color: #28a745; /* Cor verde para sucesso */
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box; /* Garante que o padding não alarga o input */
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎓 Student Grade Prediction</h1>
+        
+        {% if grade %} 
+            <div class="result-box">
+                <h2>Prediction Result:</h2>
+                <p>Based on the inputs below, the predicted letter grade is:</p>
+                <p class="grade-output">{{ grade }}</p>
+            </div>
+            
+            <h3>Input Values Submitted:</h3>
+            <ul style="list-style-type: none; padding: 0;">
+                <li><strong>Hours:</strong> {{ hours }}</li>
+                <li><strong>Practice:</strong> {{ practice }}</li>
+                <li><strong>TeamWork:</strong> {{ teamwork }}</li>
+                <li><strong>MidTerm Score:</strong> {{ midterm }}</li>
+                <li><strong>Final Exam Score:</strong> {{ final_exam }}</li>
+                <li><strong>Overall Scores:</strong> {{ scores }}</li>
+            </ul>
+            <hr>
+        {% endif %}
+
+        <h3>Predict a New Grade:</h3>
+        <form method="POST" action=".">
+            {% csrf_token %} 
+            
+            <div class="input-group">
+                <label for="hours">Study Hours (Hours):</label>
+                <input type="number" step="0.1" name="hours" required value="{{ hours|default_if_none:'' }}">
+            </div>
+            
+            <div class="input-group">
+                <label for="practice">Practice Sessions (Practice):</label>
+                <input type="number" step="0.1" name="practice" required value="{{ practice|default_if_none:'' }}">
+            </div>
+            
+            <div class="input-group">
+                <label for="teamwork">Teamwork Effectiveness (TeamWork):</label>
+                <input type="number" step="0.1" name="teamwork" required value="{{ teamwork|default_if_none:'' }}">
+            </div>
+
+            <div class="input-group">
+                <label for="midterm">MidTerm Score (MidTerm):</label>
+                <input type="number" name="midterm" required value="{{ midterm|default_if_none:'' }}">
+            </div>
+
+            <div class="input-group">
+                <label for="final_exam">Final Exam Score (FinalExam):</label>
+                <input type="number" step="0.1" name="final_exam" required value="{{ final_exam|default_if_none:'' }}">
+            </div>
+
+            <div class="input-group">
+                <label for="scores">Overall Performance Score (Scores):</label>
+                <input type="number" name="scores" required value="{{ scores|default_if_none:'' }}">
+            </div>
+
+            <button type="submit">Predict Grade</button>
+        </form>
+    </div>
+</body>
+</html>
